@@ -1,77 +1,444 @@
 /*
-  Authors : initappz (Rahul Jograna)
-  Website : https://initappz.com/
-  App Name : Grocery Delivery App Flutter
-  This App Template Source code is licensed as per the
-  terms found in the Website https://initappz.com/license
-  Copyright and Good Faith Purchasers © 2023-present initappz.
+  Jhora Store Dashboard — Sleek Modern SCSS
 */
-.card_div {
-  padding: 10px;
+
+/* 1. Top KPI Summary Grid */
+.dashboard-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+
+  .kpi-stat-card {
+    background: #ffffff;
+    border: 1px solid var(--jh-border);
+    border-radius: var(--jh-radius-lg);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 4px;
+    }
+
+    &.kpi-blue::after { background: #3b82f6; }
+    &.kpi-amber::after { background: #f59e0b; }
+    &.kpi-emerald::after { background: #10b981; }
+    &.kpi-indigo::after { background: #6366f1; }
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+    }
+
+    .kpi-icon-box {
+      width: 52px;
+      height: 52px;
+      min-width: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      &.box-blue {
+        background: #eff6ff;
+        color: #2563eb;
+      }
+      &.box-amber {
+        background: #fffbeb;
+        color: #d97706;
+      }
+      &.box-emerald {
+        background: #ecfdf5;
+        color: #059669;
+      }
+      &.box-indigo {
+        background: #eef2ff;
+        color: #4f46e5;
+      }
+    }
+
+    .kpi-text-info {
+      display: flex;
+      flex-direction: column;
+
+      .kpi-count {
+        font-size: 1.85rem;
+        font-weight: 800;
+        color: #0f172a;
+        line-height: 1.1;
+      }
+
+      .kpi-label {
+        font-size: 0.78rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #64748b;
+        margin-top: 4px;
+      }
+    }
+  }
+}
+
+/* 2. Orders Management Surface */
+.orders-management-panel {
+  background: #ffffff;
+  border: 1px solid var(--jh-border);
+  border-radius: var(--jh-radius-xl);
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+  overflow: hidden;
+
+  .orders-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 1.75rem;
+    border-bottom: 1px solid var(--jh-border);
+    background: #ffffff;
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      .header-icon-pill {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: #ecfdf5;
+        color: #059669;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+      .header-title {
+        font-size: 1.15rem;
+        font-weight: 800;
+        color: #0f172a;
+        margin: 0;
+      }
+
+      .header-subtitle {
+        font-size: 0.82rem;
+        color: #64748b;
+        margin: 0;
+      }
+    }
+
+    .btn-refresh-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      padding: 0.55rem 1.15rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      svg {
+        width: 15px;
+        height: 15px;
+        color: #64748b;
+      }
+
+      &:hover {
+        background: #f1f5f9;
+        color: #0f172a;
+        border-color: #cbd5e1;
+        transform: translateY(-1px);
+      }
+    }
+  }
+
+  .orders-card-body {
+    padding: 1.75rem;
+  }
+}
+
+/* 3. Segmented Tab Switcher */
+.segmented-tab-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #f1f5f9;
+  padding: 6px;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 1.75rem;
+  max-width: 100%;
+
+  .tab-pill-button {
+    border: none;
+    background: transparent;
+    padding: 0.65rem 1.35rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #64748b;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+
+    .tab-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #94a3b8;
+      transition: all 0.2s ease;
+    }
+
+    .tab-counter-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 12px;
+      background: #e2e8f0;
+      color: #475569;
+      transition: all 0.2s ease;
+    }
+
+    &:hover {
+      color: #0f172a;
+    }
+
+    &.active {
+      background: #ffffff;
+      color: #0f172a;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+
+      &.tab-blue .tab-status-dot { background: #3b82f6; box-shadow: 0 0 8px rgba(59, 130, 246, 0.6); }
+      &.tab-blue .tab-counter-badge { background: #eff6ff; color: #2563eb; }
+
+      &.tab-amber .tab-status-dot { background: #f59e0b; box-shadow: 0 0 8px rgba(245, 158, 11, 0.6); }
+      &.tab-amber .tab-counter-badge { background: #fffbeb; color: #d97706; }
+
+      &.tab-emerald .tab-status-dot { background: #10b981; box-shadow: 0 0 8px rgba(16, 185, 129, 0.6); }
+      &.tab-emerald .tab-counter-badge { background: #ecfdf5; color: #059669; }
+    }
+  }
+}
+
+/* 4. Orders List & Cards */
+.orders-list-wrapper {
   display: flex;
-  border-radius: 10px;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.5);
-  position: relative;
-  margin-bottom: 16px;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 360px;
 
-  .image_div {
-    height: 95px;
-    width: 95px;
-    min-width: 95px;
+  .order-modern-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 1.25rem;
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
 
-    img {
-      max-width: 100%;
-      max-height: 100%;
+    &:hover {
+      border-color: #10b981;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px -4px rgba(16, 185, 129, 0.12), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
     }
-  }
 
-  .status {
-    position: absolute;
-    right: 0;
-    bottom: 0px;
-    padding: 5px;
-    background: green;
-    border-bottom-right-radius: 5px;
-    color: white;
-    text-transform: uppercase;
-    font-size: 12px;
-    font-weight: bold;
-  }
+    .order-thumb-wrap {
+      width: 80px;
+      height: 80px;
+      min-width: 80px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
 
-  .desc_div {
-    width: 100%;
-    padding: 0px 5px;
-
-    .border_bottom {
-      padding-bottom: 10px;
-      width: 100%;
-
-      .items {
-        margin: 0px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        font-size: 12px;
-        font-weight: bold;
-        padding-bottom: 5px;
-        border-bottom: 0.5px dashed lightgray;
-        margin-bottom: 5px;
-      }
-
-      .itemss {
-        margin: 0px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        font-size: 12px;
-        font-weight: bold;
-        margin-bottom: 5px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
     }
 
-    .datetime {
-      font-size: 12px;
-      font-weight: bold;
+    .order-main-details {
+      flex: 1;
+
+      .order-top-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.6rem;
+
+        .order-code {
+          font-size: 0.88rem;
+          font-weight: 800;
+          color: #0f172a;
+          background: #f1f5f9;
+          padding: 0.2rem 0.65rem;
+          border-radius: 6px;
+        }
+
+        .order-time {
+          font-size: 0.82rem;
+          font-weight: 500;
+          color: #94a3b8;
+        }
+      }
+
+      .order-items-breakdown {
+        .order-single-item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0.35rem 0;
+          font-size: 0.88rem;
+          color: #334155;
+          border-bottom: 1px dashed #f1f5f9;
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          .item-name-text {
+            font-weight: 600;
+            color: #0f172a;
+          }
+
+          .item-unit-tag {
+            font-size: 0.78rem;
+            color: #64748b;
+            margin-left: 4px;
+          }
+
+          .item-qty-tag {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #059669;
+            background: #ecfdf5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 6px;
+          }
+
+          .item-price-tag {
+            font-weight: 700;
+            color: #0f172a;
+          }
+        }
+      }
     }
+
+    .order-status-tag {
+      align-self: flex-start;
+      padding: 0.45rem 1rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+
+      &.tag-blue {
+        background: #eff6ff;
+        color: #2563eb;
+        border: 1px solid rgba(59, 130, 246, 0.25);
+      }
+
+      &.tag-amber {
+        background: #fffbeb;
+        color: #d97706;
+        border: 1px solid rgba(245, 158, 11, 0.25);
+      }
+
+      &.tag-emerald {
+        background: #ecfdf5;
+        color: #059669;
+        border: 1px solid rgba(16, 185, 129, 0.25);
+      }
+
+      &.tag-rose {
+        background: #fef2f2;
+        color: #dc2626;
+        border: 1px solid rgba(239, 68, 68, 0.25);
+      }
+    }
+  }
+}
+
+/* 5. Modern Empty State */
+.empty-state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4.5rem 1.5rem;
+  background: #f8fafc;
+  border: 2px dashed #e2e8f0;
+  border-radius: 16px;
+  text-align: center;
+
+  .empty-icon-circle {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    margin-bottom: 1.25rem;
+
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  .empty-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 0.4rem;
+  }
+
+  .empty-desc {
+    font-size: 0.9rem;
+    color: #64748b;
+    max-width: 400px;
+    margin: 0;
   }
 }

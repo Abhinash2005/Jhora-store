@@ -21,7 +21,7 @@ import { TranslateService } from '@ngx-translate/core';
   template: '<router-outlet></router-outlet>',
 })
 export class AppComponent implements OnInit {
-  title = 'Ultimate Grocery Flutter Admin Panel';
+  title = 'Jhora Store | Vendor Portal';
 
   constructor(
     private router: Router,
@@ -31,7 +31,8 @@ export class AppComponent implements OnInit {
     public util: UtilService,
     private translate: TranslateService,
   ) {
-    titleService.setTitle(this.title);
+    this.titleService.setTitle(this.title);
+    document.title = this.title;
 
     // iconSet singleton
     iconSetService.icons = { ...brandSet, ...flagSet, ...freeSet };
@@ -66,9 +67,12 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Jhora Store | Vendor Portal');
+    document.title = 'Jhora Store | Vendor Portal';
     this.router.events.subscribe((evt) => {
-      if (!(evt instanceof NavigationEnd)) {
-        return;
+      if (evt instanceof NavigationEnd) {
+        this.titleService.setTitle('Jhora Store | Vendor Portal');
+        document.title = 'Jhora Store | Vendor Portal';
       }
     });
   }
@@ -101,9 +105,14 @@ export class AppComponent implements OnInit {
 
     const general = data && data.data && data.data.general ? data.data.general : null;
     if (general) {
-      this.util.appName = general.name;
+      this.util.appName = (general.name && !general.name.includes('Ultimate Grocery')) ? general.name : 'Jhora Store';
       this.util.general = general;
+    } else {
+      this.util.appName = 'Jhora Store';
     }
+    this.title = 'Jhora Store | Vendor Portal';
+    this.titleService.setTitle(this.title);
+    document.title = this.title;
 
     const served = data && data.data && data.data.we_served ? data.data.we_served : null;
     if (served) {

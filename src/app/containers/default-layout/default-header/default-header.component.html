@@ -8,49 +8,74 @@
 -->
 <!--<c-header class="mb-4 d-print-none" position="sticky">-->
 <ng-container>
-  <c-container [fluid]="true">
-    <button toggle="visible" cHeaderToggler [cSidebarToggle]="sidebarId" class="ps-1">
-      <svg cIcon name="cilMenu" size="lg"></svg>
-    </button>
-    <c-header-nav class="d-none d-lg-flex me-auto">
-      <c-nav-item>
-        <a cNavLink routerLink="/dashboard" routerLinkActive="active">
-          {{util.translate("Dashboard")}}
-        </a>
-      </c-nav-item>
+  <c-container [fluid]="true" class="d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center gap-3">
+      <button toggle="visible" cHeaderToggler [cSidebarToggle]="sidebarId" class="header-toggler ps-1">
+        <svg cIcon name="cilMenu" size="lg"></svg>
+      </button>
+      
+      <div class="d-none d-md-flex align-items-center">
+        <c-breadcrumb-router class="ms-1"></c-breadcrumb-router>
+      </div>
+    </div>
 
-    </c-header-nav>
+    <c-header-nav class="ms-auto d-flex align-items-center gap-3">
+      <div class="d-none d-lg-flex align-items-center me-2">
+        <span class="badge bg-success" style="font-size: 0.75rem; padding: 5px 12px;">
+          Store Online
+        </span>
+      </div>
 
-    <c-header-nav class="d-none d-lg-flex">
-
-    </c-header-nav>
-    <c-header-nav class="ms-3">
       <ng-container *ngTemplateOutlet="userDropdown"></ng-container>
     </c-header-nav>
-
-  </c-container>
-  <c-header-divider></c-header-divider>
-  <c-container [fluid]="true">
-    <c-breadcrumb-router class="ms-2"></c-breadcrumb-router>
   </c-container>
 </ng-container>
-<!--</c-header>-->
 
 <ng-template #userDropdown>
   <c-dropdown alignment="end" variant="nav-item">
-    <button cButton color="" [caret]="false" cDropdownToggle class="py-0">
-      <c-avatar cTextColor="primary" shape="rounded-1" size="md" src="./assets/img/dummy.jpeg" status="success">
-      </c-avatar>
+    <button cButton color="" [caret]="false" cDropdownToggle class="p-0 border-0 bg-transparent">
+      <div class="header-user-badge">
+        <div class="user-avatar-wrap">
+          <img src="./assets/img/dummy.jpeg" alt="Vendor Avatar" />
+          <span class="online-indicator"></span>
+        </div>
+        <div class="user-info-text d-none d-sm-flex">
+          <span class="user-name">{{util.store?.name || util.userInfo?.first_name || 'Store Manager'}}</span>
+          <span class="user-role">Vendor Partner</span>
+        </div>
+        <svg cIcon name="cilChevronBottom" size="sm" class="text-muted ms-1 d-none d-sm-inline-block"></svg>
+      </div>
     </button>
-    <ul cDropdownMenu class="pt-0 pr-5 w-auto">
-
+    <ul cDropdownMenu class="pt-0 shadow-lg border-0 mt-2" style="border-radius: 12px; min-width: 210px;">
+      <li class="p-3 border-bottom bg-light rounded-top">
+        <div class="fw-bold text-dark">{{util.store?.name || 'My Store'}}</div>
+        <small class="text-muted">{{util.userInfo?.email || 'vendor@jhora.com'}}</small>
+      </li>
       <li>
-        <a cDropdownItem (click)="logout()">
-          <svg cIcon class="me-2" name="cilLockLocked"></svg>
+        <a cDropdownItem routerLink="/products" class="py-2">
+          <svg cIcon class="me-2 text-primary" name="cilBurger"></svg>
+          {{util.translate("Products")}}
+        </a>
+      </li>
+      <li>
+        <a cDropdownItem routerLink="/analytics" class="py-2">
+          <svg cIcon class="me-2 text-info" name="cilChartLine"></svg>
+          {{util.translate("Analytics")}}
+        </a>
+      </li>
+      <li>
+        <a cDropdownItem routerLink="/support" class="py-2">
+          <svg cIcon class="me-2 text-warning" name="cilChatBubble"></svg>
+          {{util.translate("Support")}}
+        </a>
+      </li>
+      <li><hr class="dropdown-divider my-1"></li>
+      <li>
+        <a cDropdownItem (click)="logout()" class="py-2 text-danger">
+          <svg cIcon class="me-2 text-danger" name="cilLockLocked"></svg>
           {{util.translate("Logout")}}
         </a>
       </li>
-      <li></li>
     </ul>
   </c-dropdown>
 </ng-template>

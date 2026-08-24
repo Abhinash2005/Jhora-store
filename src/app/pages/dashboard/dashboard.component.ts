@@ -24,6 +24,7 @@ export class DashboardComponent implements OnInit {
   oldOrders: any[] = [];
   dummy = Array(5);
   olders: any[] = [];
+  selectedTab: number = 0;
   constructor(
     public api: ApiService,
     public util: UtilService,

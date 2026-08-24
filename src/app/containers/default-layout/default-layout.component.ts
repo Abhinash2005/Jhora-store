@@ -26,15 +26,15 @@ export class DefaultLayoutComponent {
   constructor(
     public util: UtilService
   ) {
+    this.navItems = this.util.navItems;
     setTimeout(() => {
       this.util.navItems.forEach((x) => {
-        x.name = this.util.translate(x.name);
+        x.name = this.util.translate(x.name) || x.name;
         x.children?.forEach((sub) => {
-          sub.name = this.util.translate(sub.name);
+          sub.name = this.util.translate(sub.name) || sub.name;
         });
       });
-      this.navItems = this.util.navItems;
-    }, 2000);
-
+      this.navItems = [...this.util.navItems];
+    }, 500);
   }
 }

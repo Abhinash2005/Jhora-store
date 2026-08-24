@@ -1,8 +1,110 @@
 /*
-  Authors : initappz (Rahul Jograna)
-  Website : https://initappz.com/
-  App Name : Grocery Delivery App Flutter
-  This App Template Source code is licensed as per the
-  terms found in the Website https://initappz.com/license
-  Copyright and Good Faith Purchasers © 2023-present initappz.
+  Auth & Login Modern SCSS
 */
+
+.auth-page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.12) 0%, transparent 45%),
+              radial-gradient(circle at 85% 85%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+              #f8fafc;
+  padding: 2rem 1rem;
+}
+
+.auth-card-modern {
+  background: #ffffff;
+  border: 1px solid var(--jh-border);
+  border-radius: var(--jh-radius-xl);
+  box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(226, 232, 240, 0.6);
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 460px;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  }
+
+  .auth-brand-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+
+    .brand-icon-box {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #0b1329 0%, #1e293b 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2);
+      padding: 6px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    .brand-text-box {
+      text-align: left;
+      
+      .brand-name {
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: var(--jh-slate-900);
+        line-height: 1.1;
+      }
+      .brand-portal {
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--jh-primary);
+      }
+    }
+  }
+
+  .auth-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--jh-slate-900);
+    margin-bottom: 0.35rem;
+  }
+
+  .auth-subtitle {
+    font-size: 0.88rem;
+    color: var(--jh-slate-500);
+    margin-bottom: 1.75rem;
+  }
+
+  .auth-action-btn {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 0.95rem !important;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .auth-footer-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid var(--jh-border-light);
+    margin-top: 1rem;
+  }
+}

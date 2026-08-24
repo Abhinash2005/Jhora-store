@@ -1,10 +1,5 @@
 <!-- 
-  Authors : initappz (Rahul Jograna)
-  Website : https://initappz.com/
-  App Name : Grocery Delivery App Flutter
-  This App Template Source code is licensed as per the
-  terms found in the Website https://initappz.com/license
-  Copyright and Good Faith Purchasers © 2023-present initappz.
+  Jhora Store Products Management
 -->
 <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
 <div class="animated fadeIn">
@@ -13,111 +8,139 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    {{util.translate('Your Products')}}
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fa fa-cubes text-primary"></i>
+                        <span>{{util.translate('Store Products')}}</span>
+                        <span class="badge bg-light text-secondary border ms-2" *ngIf="products?.length">
+                            {{products.length}} Total
+                        </span>
+                    </div>
                     <div class="card-header-actions">
-                        <button type="link" class="btn btn-primary" (click)="createNew()">{{util.translate('Add New')}}
+                        <button type="button" class="btn btn-primary" (click)="createNew()">
+                            <i class="fa fa-plus me-1"></i> {{util.translate('Add New Product')}}
                         </button>
-
                     </div>
                 </div>
+
                 <div class="card-body">
-                    <div class="row flex_row">
-                        <div class="col-lg-6">
-                            <input type="text" class="form-control form-control-lg" id="name"
-                                [placeholder]="util.translate('Search')" (input)="onSearchChange($event.target.value)">
+                    <!-- Search and Filter Bar -->
+                    <div class="row flex_row align-items-center">
+                        <div class="col-lg-5 col-md-7">
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fa fa-search"></i>
+                                </span>
+                                <input type="text" class="form-control" id="name"
+                                    [placeholder]="util.translate('Search products by title or keywords...')" 
+                                    (input)="onSearchChange($event.target.value)">
+                            </div>
                         </div>
-
                     </div>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>{{util.translate('Id')}} </th>
-                                <th>{{util.translate('Cover')}} </th>
-                                <th (click)="sortByName()" style="cursor: pointer;">{{util.translate('Name')}} &nbsp; <i
-                                        class="fa fa-sort-down fa-lg"></i> </th>
-                                <th>{{util.translate('Price')}} </th>
-                                <th>{{util.translate('In Stock')}} </th>
-                                <th (click)="sortByRating()" style="cursor: pointer;">{{util.translate('Rating')}}
-                                    &nbsp; <i class="fa fa-sort-down fa-lg"></i></th>
-                                <th>{{util.translate('Action')}} </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of dummy">
-                                <td *ngFor="let item of [1,2,3,4,5,6,7]">
-                                    <ngx-skeleton-loader count="1" appearance="line"></ngx-skeleton-loader>
-                                </td>
-                            </tr>
-                            <tr
-                                *ngFor="let item of products | paginate: {id:'pagin1', itemsPerPage: 10, currentPage: page }">
-                                <td>{{item.id}}</td>
-                                <td class="text-center">
-                                    <div class="avatar">
-                                        <img [src]="api.imageUrl+ item.cover" onError="this.src='assets/imgs/user.png'"
-                                            class="img-avatar" style="height: 36px;width: 36px;">
-                                    </div>
-                                </td>
-                                <td>{{item.name}}</td>
-                                <td>
-                                    <span *ngIf="item.discount == 0">
 
-                                        <span *ngIf="util.cside =='left'">
-                                            {{util.currecny}} {{item.original_price}}
-                                        </span>
-                                        <span *ngIf="util.cside =='right'">
-                                            {{item.original_price}} {{util.currecny}}
-                                        </span>
-                                    </span>
-                                    <span *ngIf="item.discount > 0">
-                                        <span style="text-decoration: line-through;">
-                                            <span *ngIf="util.cside =='left'">
-                                                {{util.currecny}} {{item.original_price}}
-                                            </span>
-                                            <span *ngIf="util.cside =='right'">
-                                                {{item.original_price}} {{util.currecny}}
-                                            </span>
-                                        </span>
-                                        <span style="font-weight: bold;">
-                                            <span *ngIf="util.cside =='left'">
-                                                {{util.currecny}} {{item.sell_price}}
-                                            </span>
-                                            <span *ngIf="util.cside =='right'">
-                                                {{item.sell_price}} {{util.currecny}}
-                                            </span>
-                                        </span>
-                                    </span>
-                                </td>
-                                <td>
-                                    <c-badge [color]="item.in_stoke == 1 ? 'success' :'dark'"
-                                        [class]="item.in_stoke == 1 ? 'me-1 badge bg-success' :'me-1 badge bg-dark' "
-                                        (click)="updateStock(item)">
-                                        {{item.in_stoke == 1 ?
-                                        util.translate('In Stock'): util.translate('Out Of Stock')}}
-                                    </c-badge>
-                                </td>
-                                <td>
-                                    <span *ngIf="item.total_rating >0">
-                                        {{item.rating}} / ({{item.total_rating}})
-                                    </span>
-                                    <span *ngIf="item.total_rating == 0">
-                                        {{item.rating}}
-                                    </span>
-                                </td>
-                                <td>
-                                    <c-badge [color]="item.status == 1 ? 'success' :'dark'"
-                                        [class]="item.status == 1 ? 'me-1 badge bg-success' :'me-1 badge bg-dark' "
-                                        (click)="updateStatus(item)">
-                                        {{item.status == 1 ?util.translate('Active'): util.translate('Deactivated')}}
-                                    </c-badge>
-                                    <c-badge color="primary" class="me-1 badge bg-info" (click)="viewProduct(item)">
-                                        {{util.translate('View')}}
-                                    </c-badge>
-                                </td>
-                            </tr>
+                    <!-- Products Table -->
+                    <div class="table-responsive table-container">
+                        <table class="table table-striped align-middle">
+                            <thead>
+                                <tr>
+                                    <th style="width: 70px;">{{util.translate('Id')}}</th>
+                                    <th style="width: 80px;" class="text-center">{{util.translate('Image')}}</th>
+                                    <th (click)="sortByName()" style="cursor: pointer;">
+                                        {{util.translate('Product Name')}} &nbsp;
+                                        <i class="fa fa-sort text-muted"></i>
+                                    </th>
+                                    <th>{{util.translate('Price')}}</th>
+                                    <th>{{util.translate('Stock Status')}}</th>
+                                    <th (click)="sortByRating()" style="cursor: pointer;">
+                                        {{util.translate('Rating')}} &nbsp;
+                                        <i class="fa fa-sort text-muted"></i>
+                                    </th>
+                                    <th style="width: 170px;" class="text-end">{{util.translate('Actions')}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Skeletons -->
+                                <tr *ngFor="let item of dummy">
+                                    <td *ngFor="let item of [1,2,3,4,5,6,7]">
+                                        <ngx-skeleton-loader count="1" appearance="line" [theme]="{'height.px': 14}"></ngx-skeleton-loader>
+                                    </td>
+                                </tr>
 
-                        </tbody>
-                    </table>
+                                <!-- Empty State -->
+                                <tr *ngIf="!dummy?.length && !products?.length">
+                                    <td colspan="7" class="text-center py-5">
+                                        <div class="empty-state-modern border-0 py-3">
+                                            <div class="empty-icon-circle">
+                                                <i class="fa fa-shopping-basket"></i>
+                                            </div>
+                                            <h5>No Products Found</h5>
+                                            <p>No products match your search query or your store catalog is empty.</p>
+                                        </div>
+                                    </td>
+                                </tr>
 
+                                <!-- Real Rows -->
+                                <tr *ngFor="let item of products | paginate: {id:'pagin1', itemsPerPage: 10, currentPage: page }">
+                                    <td>
+                                        <span class="text-muted fw-bold">#{{item.id}}</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <img [src]="api.imageUrl + item.cover" onError="this.src='assets/imgs/user.png'"
+                                            class="avatar-img-modern" alt="Product thumbnail">
+                                    </td>
+                                    <td>
+                                        <div class="fw-bold text-dark">{{item.name}}</div>
+                                    </td>
+                                    <td>
+                                        <div *ngIf="item.discount == 0" class="fw-bold text-dark">
+                                            <span *ngIf="util.cside =='left'">{{util.currecny}} {{item.original_price}}</span>
+                                            <span *ngIf="util.cside =='right'">{{item.original_price}} {{util.currecny}}</span>
+                                        </div>
+                                        <div *ngIf="item.discount > 0">
+                                            <span class="text-muted text-decoration-line-through me-1" style="font-size: 0.8rem;">
+                                                <span *ngIf="util.cside =='left'">{{util.currecny}} {{item.original_price}}</span>
+                                                <span *ngIf="util.cside =='right'">{{item.original_price}} {{util.currecny}}</span>
+                                            </span>
+                                            <span class="fw-bold text-success">
+                                                <span *ngIf="util.cside =='left'">{{util.currecny}} {{item.sell_price}}</span>
+                                                <span *ngIf="util.cside =='right'">{{item.sell_price}} {{util.currecny}}</span>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span [class]="item.in_stoke == 1 ? 'badge bg-success' : 'badge bg-dark'"
+                                            (click)="updateStock(item)"
+                                            [title]="'Click to toggle stock status'">
+                                            <i class="fa fa-circle" style="font-size: 7px;"></i>
+                                            {{item.in_stoke == 1 ? util.translate('In Stock') : util.translate('Out Of Stock')}}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-1">
+                                            <i class="fa fa-star text-warning" style="font-size: 13px;"></i>
+                                            <span class="fw-bold">{{item.rating}}</span>
+                                            <span class="text-muted" style="font-size: 0.78rem;" *ngIf="item.total_rating > 0">
+                                                ({{item.total_rating}})
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="text-end">
+                                        <div class="d-inline-flex align-items-center gap-1">
+                                            <span [class]="item.status == 1 ? 'badge bg-success' : 'badge bg-danger'"
+                                                (click)="updateStatus(item)"
+                                                [title]="'Click to toggle active status'">
+                                                {{item.status == 1 ? util.translate('Active') : util.translate('Disabled')}}
+                                            </span>
+                                            <button type="button" class="btn btn-sm btn-secondary" (click)="viewProduct(item)" title="Edit / View Details">
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
                     <div *ngIf="products?.length > 0">
                         <pagination-controls id="pagin1" (pageChange)="page = $event"></pagination-controls>
                     </div>

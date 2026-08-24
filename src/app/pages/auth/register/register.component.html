@@ -1,83 +1,91 @@
 <!-- 
-  Authors : initappz (Rahul Jograna)
-  Website : https://initappz.com/
-  App Name : Grocery Delivery App Flutter
-  This App Template Source code is licensed as per the
-  terms found in the Website https://initappz.com/license
-  Copyright and Good Faith Purchasers © 2023-present initappz.
+  Jhora Store Registration Page
 -->
 <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
-<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
-  <c-container>
-    <c-row class="justify-content-center">
-      <c-col lg="7" md="9" xl="6">
-        <c-card class="mx-4">
-          <c-card-body class="p-4">
-            <form cForm>
-              <h1>{{util.translate('Register')}}</h1>
-              <p class="text-medium-emphasis">{{util.translate('Create your account')}}</p>
-              <c-input-group class="mb-3">
-                <span cInputGroupText>
-                  <svg cIcon name="cilUser"></svg>
-                </span>
-                <input cFormControl [placeholder]="util.translate('First Name')"
-                  [class]="submited== true && first_name =='' ?'validator_error':''" [(ngModel)]="first_name"
-                  [ngModelOptions]="{standalone: true}" />
-              </c-input-group>
-              <c-input-group class="mb-3">
-                <span cInputGroupText>
-                  <svg cIcon name="cilUser"></svg>
-                </span>
-                <input cFormControl [placeholder]="util.translate('Last Name')" [(ngModel)]="last_name"
-                  [class]="submited== true && last_name =='' ?'validator_error':''"
-                  [ngModelOptions]="{standalone: true}" />
-              </c-input-group>
-              <div class="row">
-                <div class="col-md-3">
-                  <c-input-group class="mb-3">
-                    <input cFormControl placeholder="+1" [(ngModel)]="country_code"
-                      [class]="submited== true && country_code =='' ?'validator_error':''"
-                      [ngModelOptions]="{standalone: true}" />
-                  </c-input-group>
-                </div>
-                <div class="col-md-9">
-                  <c-input-group class="mb-3">
-                    <input cFormControl [placeholder]="util.translate('Phone Number')" [(ngModel)]="mobile"
-                      [class]="submited== true && mobile =='' ?'validator_error':''"
-                      [ngModelOptions]="{standalone: true}" />
-                  </c-input-group>
-                </div>
-              </div>
-              <c-input-group class="mb-3">
-                <span cInputGroupText>@</span>
-                <input cFormControl [placeholder]="util.translate('Email')" type="email" required [(ngModel)]="email"
-                  [class]="submited== true && email =='' ?'validator_error':''" [ngModelOptions]="{standalone: true}" />
-              </c-input-group>
-              <c-input-group class="mb-3">
-                <span cInputGroupText>
-                  <svg cIcon name="cilLockLocked"></svg>
-                </span>
-                <input cFormControl [placeholder]="util.translate('Password')" type="password" [(ngModel)]="password"
-                  [class]="submited== true && password =='' ?'validator_error':''"
-                  [ngModelOptions]="{standalone: true}" />
-              </c-input-group>
-              <c-input-group class="mb-4">
-                <span cInputGroupText>
-                  <svg cIcon name="cilLockLocked"></svg>
-                </span>
-                <input cFormControl [placeholder]="util.translate('Repeat password')" type="password"
-                  [(ngModel)]="confirm_password"
-                  [class]="submited== true && confirm_password =='' ?'validator_error':''"
-                  [ngModelOptions]="{standalone: true}" />
-              </c-input-group>
-              <div class="d-grid">
-                <button cButton color="success" (click)="onRegister()" class="create_btn">
-                  {{util.translate('Create Account')}}</button>
-              </div>
-            </form>
-          </c-card-body>
-        </c-card>
-      </c-col>
-    </c-row>
-  </c-container>
+
+<div class="auth-page-wrapper">
+  <div class="auth-card-modern" style="max-width: 520px;">
+    
+    <!-- Brand Header -->
+    <div class="auth-brand-badge">
+      <div class="brand-icon-box">
+        <img src="assets/imgs/jhora-logo.png" alt="Jhora Logo">
+      </div>
+      <div class="brand-text-box">
+        <div class="brand-name">{{util.appName || 'Jhora Store'}}</div>
+        <div class="brand-portal">Vendor Onboarding</div>
+      </div>
+    </div>
+
+    <h2 class="auth-title">{{util.translate('Create Vendor Account')}}</h2>
+    <p class="auth-subtitle">{{util.translate('Register your store and start selling with Jhora')}}</p>
+
+    <form cForm>
+      <div class="row g-2 mb-3">
+        <div class="col-6">
+          <label class="form-label">{{util.translate('First Name')}}</label>
+          <input cFormControl [placeholder]="util.translate('First Name')"
+            [class]="submited == true && first_name == '' ? 'validator_error' : ''" [(ngModel)]="first_name"
+            [ngModelOptions]="{standalone: true}" />
+        </div>
+        <div class="col-6">
+          <label class="form-label">{{util.translate('Last Name')}}</label>
+          <input cFormControl [placeholder]="util.translate('Last Name')" [(ngModel)]="last_name"
+            [class]="submited == true && last_name == '' ? 'validator_error' : ''"
+            [ngModelOptions]="{standalone: true}" />
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">{{util.translate('Phone Number')}}</label>
+        <div class="row g-2">
+          <div class="col-4">
+            <input cFormControl placeholder="+1" [(ngModel)]="country_code"
+              [class]="submited == true && country_code == '' ? 'validator_error' : ''"
+              [ngModelOptions]="{standalone: true}" />
+          </div>
+          <div class="col-8">
+            <input cFormControl [placeholder]="util.translate('Phone Number')" [(ngModel)]="mobile"
+              [class]="submited == true && mobile == '' ? 'validator_error' : ''"
+              [ngModelOptions]="{standalone: true}" />
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">{{util.translate('Email Address')}}</label>
+        <div class="input-group">
+          <span class="input-group-text">@</span>
+          <input cFormControl [placeholder]="util.translate('vendor@jhora.com')" type="email" required [(ngModel)]="email"
+            [class]="submited == true && email == '' ? 'validator_error' : ''" [ngModelOptions]="{standalone: true}" />
+        </div>
+      </div>
+
+      <div class="row g-2 mb-4">
+        <div class="col-6">
+          <label class="form-label">{{util.translate('Password')}}</label>
+          <input cFormControl [placeholder]="util.translate('••••••••')" type="password" [(ngModel)]="password"
+            [class]="submited == true && password == '' ? 'validator_error' : ''"
+            [ngModelOptions]="{standalone: true}" />
+        </div>
+        <div class="col-6">
+          <label class="form-label">{{util.translate('Confirm Password')}}</label>
+          <input cFormControl [placeholder]="util.translate('••••••••')" type="password"
+            [(ngModel)]="confirm_password"
+            [class]="submited == true && confirm_password == '' ? 'validator_error' : ''"
+            [ngModelOptions]="{standalone: true}" />
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-primary auth-action-btn" (click)="onRegister()">
+        <i class="fa fa-user-plus me-1"></i> {{util.translate('Create Account')}}
+      </button>
+
+      <div class="text-center mt-3">
+        <span class="text-muted me-1" style="font-size: 0.88rem;">Already have a store account?</span>
+        <a routerLink="/login" class="text-primary fw-semibold" style="font-size: 0.88rem;">Sign In</a>
+      </div>
+    </form>
+
+  </div>
 </div>

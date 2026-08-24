@@ -1,72 +1,158 @@
 /*
-  Authors : initappz (Rahul Jograna)
-  Website : https://initappz.com/
-  App Name : Grocery Delivery App Flutter
-  This App Template Source code is licensed as per the
-  terms found in the Website https://initappz.com/license
-  Copyright and Good Faith Purchasers © 2023-present initappz.
+  Support & Chat Modern SCSS
 */
-.lower_div {
-    padding: 20px;
-    height: 50vh;
-    overflow: scroll;
 
-    .main_div_right {
-        width: 100%;
+.support-chat-wrapper {
+  background: #ffffff;
+  border: 1px solid var(--jh-border);
+  border-radius: var(--jh-radius-lg);
+  overflow: hidden;
+  height: 72vh;
+  display: flex;
+
+  .chat-sidebar-pane {
+    width: 320px;
+    min-width: 320px;
+    background: var(--jh-slate-50);
+    border-right: 1px solid var(--jh-border);
+    display: flex;
+    flex-direction: column;
+
+    .sidebar-header-box {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--jh-border);
+      background: #ffffff;
+      font-weight: 700;
+      color: var(--jh-slate-800);
+      font-size: 0.95rem;
+    }
+
+    .contacts-scroll-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.5rem;
+
+      .active-chat-card {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: #ffffff;
+        border-radius: var(--jh-radius-md);
+        padding: 0.75rem 1rem;
+        margin-bottom: 0.5rem;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+      }
+
+      .contact-item-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0.75rem 1rem;
+        border-radius: var(--jh-radius-md);
+        margin-bottom: 4px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        background: transparent;
+
+        &:hover {
+          background: #ffffff;
+          box-shadow: var(--jh-shadow-xs);
+        }
+
+        .avatar-wrap {
+          position: relative;
+          width: 40px;
+          height: 40px;
+          min-width: 40px;
+
+          img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+        }
+
+        .contact-info {
+          flex: 1;
+          overflow: hidden;
+
+          .contact-name {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--jh-slate-800);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin: 0;
+          }
+
+          .contact-sub {
+            font-size: 0.75rem;
+            color: var(--jh-slate-400);
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .chat-conversation-pane {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+
+    .messages-scroll-window {
+      flex: 1;
+      padding: 1.5rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .msg-row-right {
         display: flex;
         justify-content: flex-end;
-        position: relative;
 
-        .msg_div {
-            display: flex;
-            justify-content: flex-end;
-            width: 80%;
-            margin-bottom: 15px;
-
-            .inner_msg {
-                background-color: #F0EFF5;
-                padding: 10px;
-                border-radius: 5px;
-            }
+        .msg-pill {
+          background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+          color: #ffffff;
+          padding: 0.75rem 1.15rem;
+          border-radius: 16px 16px 4px 16px;
+          font-size: 0.9rem;
+          max-width: 70%;
+          line-height: 1.4;
+          box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
         }
+      }
 
-        .tri_right {
-            width: 0;
-            height: 0;
-            position: absolute;
-            border-top: 10px solid #F0EFF5;
-            border-left: 10px solid transparent;
-            bottom: 10px;
-        }
-    }
-
-    .main_div_left {
-        width: 100%;
+      .msg-row-left {
         display: flex;
         justify-content: flex-start;
-        position: relative;
 
-        .msg_div {
-            display: flex;
-            justify-content: flex-start;
-            width: 80%;
-            margin-bottom: 15px;
-
-            .inner_msg {
-                background-color: gray;
-                padding: 10px;
-                border-radius: 5px;
-                color: white;
-            }
+        .msg-pill {
+          background: var(--jh-slate-100);
+          color: var(--jh-slate-800);
+          padding: 0.75rem 1.15rem;
+          border-radius: 16px 16px 16px 4px;
+          font-size: 0.9rem;
+          max-width: 70%;
+          line-height: 1.4;
         }
-
-        .tri_left {
-            width: 0;
-            height: 0;
-            position: absolute;
-            border-top: 10px solid gray;
-            border-right: 10px solid transparent;
-            bottom: 10px;
-        }
+      }
     }
+
+    .chat-bottom-input-bar {
+      padding: 1rem 1.25rem;
+      border-top: 1px solid var(--jh-border);
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .form-control {
+        border-radius: 24px !important;
+        padding: 0.65rem 1.25rem !important;
+      }
+    }
+  }
 }

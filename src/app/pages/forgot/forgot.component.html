@@ -1,148 +1,179 @@
 <!-- 
-  Authors : initappz (Rahul Jograna)
-  Website : https://initappz.com/
-  App Name : Grocery Delivery App Flutter
-  This App Template Source code is licensed as per the
-  terms found in the Website https://initappz.com/license
-  Copyright and Good Faith Purchasers © 2023-present initappz.
+  Jhora Store Forgot Password
 -->
 <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
 <div id="sign-in-button"></div>
-<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
-  <c-container>
-    <div class="row">
-      <div class="col-md-6 mx-auto">
-        <div class="card-group">
-          <div class="card p-4">
-            <div class="card-body">
-              <form *ngIf="util.reset_pwd == 0 && div == 1">
 
-                <h1>{{util.translate('Reset Password')}}</h1>
-                <p class="text-muted">{{util.translate('Send OTP')}}</p>
+<div class="auth-page-wrapper">
+  <div class="auth-card-modern">
 
-                <div class="input-group mb-3">
-                  <input type="email" class="form-control" [(ngModel)]="email"
-                    [placeholder]="util.translate('Email address')" autocomplete="email" required
-                    [ngModelOptions]="{standalone: true}">
-                </div>
-                <div class="otp_content" *ngIf="otpSent == true">
-                  <p>{{util.translate('Enter OTP')}} </p>
-                  <input cFormControl [placeholder]="util.translate('Enter OTP')" type="number" [(ngModel)]="otp"
-                    [class]="submited== true && otp =='' ?'validator_error':''" [ngModelOptions]="{standalone: true}" />
-                </div>
-                <div class="row">
-                  <div class="col-6">
-                    <button type="button" class="btn btn-primary px-4" *ngIf="otpSent ==false"
-                      (click)="goToTabs()">{{util.translate('Send OTP')}}</button>
-                    <button type="button" class="btn btn-primary px-4" *ngIf="otpSent ==true"
-                      (click)="verifyOTP()">{{util.translate('Verify OTP')}}</button>
-                  </div>
-                </div>
+    <!-- Brand Header -->
+    <div class="auth-brand-badge">
+      <div class="brand-icon-box">
+        <img src="assets/imgs/jhora-logo.png" alt="Jhora Logo">
+      </div>
+      <div class="brand-text-box">
+        <div class="brand-name">{{util.appName || 'Jhora Store'}}</div>
+        <div class="brand-portal">Vendor Recovery</div>
+      </div>
+    </div>
 
-              </form>
+    <!-- Email Reset (Step 1) -->
+    <form *ngIf="util.reset_pwd == 0 && div == 1">
+      <h2 class="auth-title">{{util.translate('Reset Password')}}</h2>
+      <p class="auth-subtitle">{{util.translate('Enter your email to receive a recovery OTP code')}}</p>
 
-              <form *ngIf="util.reset_pwd == 0 &&  div == 2">
+      <div class="mb-3">
+        <label class="form-label">{{util.translate('Email Address')}}</label>
+        <div class="input-group">
+          <span class="input-group-text">
+            <svg cIcon name="cilUser"></svg>
+          </span>
+          <input type="email" class="form-control" [(ngModel)]="email"
+            [placeholder]="util.translate('vendor@jhora.com')" autocomplete="email" required
+            [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
 
-                <h1>{{util.translate('Reset Password')}}</h1>
-                <p class="text-muted">{{util.translate('Update Password')}}</p>
+      <div class="mb-4" *ngIf="otpSent == true">
+        <label class="form-label">{{util.translate('Enter OTP')}}</label>
+        <div class="input-group">
+          <span class="input-group-text">
+            <svg cIcon name="cilLockLocked"></svg>
+          </span>
+          <input cFormControl [placeholder]="util.translate('6-digit OTP')" type="number" [(ngModel)]="otp"
+            [class]="submited == true && otp == '' ? 'validator_error' : ''" [ngModelOptions]="{standalone: true}" />
+        </div>
+      </div>
 
-                <div class="input-group mb-4">
-                  <input type="password" class="form-control" [(ngModel)]="password"
-                    [placeholder]="util.translate('Password')" autocomplete="current-password" required
-                    [ngModelOptions]="{standalone: true}">
-                </div>
+      <button type="button" class="btn btn-primary auth-action-btn" *ngIf="otpSent == false" (click)="goToTabs()">
+        {{util.translate('Send Verification OTP')}}
+      </button>
+      <button type="button" class="btn btn-primary auth-action-btn" *ngIf="otpSent == true" (click)="verifyOTP()">
+        {{util.translate('Verify OTP Code')}}
+      </button>
 
-                <div class="input-group mb-4">
-                  <input type="password" class="form-control" [(ngModel)]="confirm"
-                    [placeholder]="util.translate('Confirm Password')" autocomplete="current-password" required
-                    [ngModelOptions]="{standalone: true}">
-                </div>
+      <div class="text-center mt-3">
+        <a routerLink="/login" class="text-muted fw-semibold" style="font-size: 0.85rem;">
+          <i class="fa fa-arrow-left me-1"></i> Back to Sign In
+        </a>
+      </div>
+    </form>
 
+    <!-- Email Reset (Step 2: New Password) -->
+    <form *ngIf="util.reset_pwd == 0 && div == 2">
+      <h2 class="auth-title">{{util.translate('Set New Password')}}</h2>
+      <p class="auth-subtitle">{{util.translate('Create a strong password for your account')}}</p>
 
-                <div class="row">
-                  <div class="col-6">
-                    <button type="button" class="btn btn-primary px-4"
-                      (click)="updatePassword()">{{util.translate('Update')}}</button>
-                  </div>
-                </div>
+      <div class="mb-3">
+        <label class="form-label">{{util.translate('New Password')}}</label>
+        <div class="input-group">
+          <span class="input-group-text">
+            <svg cIcon name="cilLockLocked"></svg>
+          </span>
+          <input type="password" class="form-control" [(ngModel)]="password"
+            [placeholder]="util.translate('New Password')" autocomplete="current-password" required
+            [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
 
-              </form>
+      <div class="mb-4">
+        <label class="form-label">{{util.translate('Confirm Password')}}</label>
+        <div class="input-group">
+          <span class="input-group-text">
+            <svg cIcon name="cilLockLocked"></svg>
+          </span>
+          <input type="password" class="form-control" [(ngModel)]="confirm"
+            [placeholder]="util.translate('Confirm Password')" autocomplete="current-password" required
+            [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
 
-              <form *ngIf="util.reset_pwd == 1 && div == 1">
+      <button type="button" class="btn btn-primary auth-action-btn" (click)="updatePassword()">
+        {{util.translate('Update Password')}}
+      </button>
+    </form>
 
-                <h1>{{util.translate('Reset Password')}}</h1>
-                <p class="text-muted">{{util.translate('Send OTP')}}</p>
+    <!-- Phone Reset (Step 1) -->
+    <form *ngIf="util.reset_pwd == 1 && div == 1">
+      <h2 class="auth-title">{{util.translate('Reset Password')}}</h2>
+      <p class="auth-subtitle">{{util.translate('Enter your mobile number to receive OTP')}}</p>
 
-                <div class="row">
-                  <div class="col-3">
-                    <div *ngIf="util.countrys?.length">
-                      <select id="ccmonth" [(ngModel)]="country_code" [ngModelOptions]="{standalone: true}"
-                        class="form-control">
-                        <option *ngFor="let item of util.countrys" [value]="item.dialling_code">
-                          {{item.country_name}} </option>
-                      </select>
-                    </div>
-                    <div *ngIf="!util.countrys?.length">
-                      <input type="tel" class="form-control" [(ngModel)]="country_code"
-                        [placeholder]="util.translate('Country Code')" [disabled]="true" autocomplete="phone" required
-                        [ngModelOptions]="{standalone: true}">
-                    </div>
-                  </div>
-                  <div class="col-9">
-                    <div class="input-group mb-3">
-                      <input type="number" class="form-control" [(ngModel)]="mobile"
-                        [placeholder]="util.translate('Phone')" autocomplete="phone" required
-                        [ngModelOptions]="{standalone: true}">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="otp_content" *ngIf="otpSent == true">
-                  <p>Enter OTP</p>
-                  <input cFormControl [placeholder]="util.translate('Enter OTP')" type="number" [(ngModel)]="otp"
-                    [class]="submited== true && otp =='' ?'validator_error':''" [ngModelOptions]="{standalone: true}" />
-                </div>
-                <div class="row">
-                  <div class="col-6">
-                    <button type="button" class="btn btn-primary px-4" *ngIf="otpSent ==false"
-                      (click)="sendPhoneOTP()">{{util.translate('Send OTP')}}</button>
-                    <button type="button" class="btn btn-primary px-4" *ngIf="otpSent ==true"
-                      (click)="verifyOTP()">{{util.translate('Verify OTP')}}</button>
-                  </div>
-                </div>
-
-              </form>
-
-              <form *ngIf="util.reset_pwd == 1 &&  div == 2">
-
-                <h1>{{util.translate('Reset Password')}}</h1>
-                <p class="text-muted">{{util.translate('Update Password')}}</p>
-
-                <div class="input-group mb-4">
-                  <input type="password" class="form-control" [(ngModel)]="password"
-                    [placeholder]="util.translate('Password')" autocomplete="current-password" required
-                    [ngModelOptions]="{standalone: true}">
-                </div>
-
-                <div class="input-group mb-4">
-                  <input type="password" class="form-control" [(ngModel)]="confirm"
-                    [placeholder]="util.translate('Confirm Password')" autocomplete="current-password" required
-                    [ngModelOptions]="{standalone: true}">
-                </div>
-
-
-                <div class="row">
-                  <div class="col-6">
-                    <button type="button" class="btn btn-primary px-4"
-                      (click)="updatePassword()">{{util.translate('Update')}}</button>
-                  </div>
-                </div>
-
-              </form>
-            </div>
+      <div class="mb-3">
+        <label class="form-label">{{util.translate('Phone Number')}}</label>
+        <div class="row g-2">
+          <div class="col-4" *ngIf="util.countrys?.length">
+            <select class="form-select" [(ngModel)]="country_code" [ngModelOptions]="{standalone: true}">
+              <option *ngFor="let item of util.countrys" [value]="item.dialling_code">{{item.country_name}}</option>
+            </select>
+          </div>
+          <div class="col-4" *ngIf="!util.countrys?.length">
+            <input type="tel" class="form-control" [(ngModel)]="country_code" [disabled]="true" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col-8">
+            <input type="number" class="form-control" [(ngModel)]="mobile" [placeholder]="util.translate('Phone')" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
       </div>
-    </div>
-  </c-container>
+
+      <div class="mb-4" *ngIf="otpSent == true">
+        <label class="form-label">{{util.translate('Enter OTP')}}</label>
+        <div class="input-group">
+          <span class="input-group-text">
+            <svg cIcon name="cilLockLocked"></svg>
+          </span>
+          <input cFormControl [placeholder]="util.translate('6-digit OTP')" type="number" [(ngModel)]="otp"
+            [class]="submited == true && otp == '' ? 'validator_error' : ''" [ngModelOptions]="{standalone: true}" />
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-primary auth-action-btn" *ngIf="otpSent == false" (click)="sendPhoneOTP()">
+        {{util.translate('Send Verification OTP')}}
+      </button>
+      <button type="button" class="btn btn-primary auth-action-btn" *ngIf="otpSent == true" (click)="verifyOTP()">
+        {{util.translate('Verify OTP Code')}}
+      </button>
+
+      <div class="text-center mt-3">
+        <a routerLink="/login" class="text-muted fw-semibold" style="font-size: 0.85rem;">
+          <i class="fa fa-arrow-left me-1"></i> Back to Sign In
+        </a>
+      </div>
+    </form>
+
+    <!-- Phone Reset (Step 2: New Password) -->
+    <form *ngIf="util.reset_pwd == 1 && div == 2">
+      <h2 class="auth-title">{{util.translate('Set New Password')}}</h2>
+      <p class="auth-subtitle">{{util.translate('Create a strong password for your account')}}</p>
+
+      <div class="mb-3">
+        <label class="form-label">{{util.translate('New Password')}}</label>
+        <div class="input-group">
+          <span class="input-group-text">
+            <svg cIcon name="cilLockLocked"></svg>
+          </span>
+          <input type="password" class="form-control" [(ngModel)]="password"
+            [placeholder]="util.translate('New Password')" autocomplete="current-password" required
+            [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">{{util.translate('Confirm Password')}}</label>
+        <div class="input-group">
+          <span class="input-group-text">
+            <svg cIcon name="cilLockLocked"></svg>
+          </span>
+          <input type="password" class="form-control" [(ngModel)]="confirm"
+            [placeholder]="util.translate('Confirm Password')" autocomplete="current-password" required
+            [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-primary auth-action-btn" (click)="updatePassword()">
+        {{util.translate('Update Password')}}
+      </button>
+    </form>
+
+  </div>
 </div>

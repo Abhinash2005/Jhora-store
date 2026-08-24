@@ -34,19 +34,7 @@ $enable-rtl: true;
 @import "custom";
 
 .form-group {
-  margin: 5px 0px;
-}
-
-.validator_error {
-  border: 1px solid red;
-}
-
-.btn {
-  color: white !important;
-}
-
-.badge {
-  cursor: pointer !important;
+  margin: 10px 0px;
 }
 
 .create_btn {
@@ -55,10 +43,6 @@ $enable-rtl: true;
 
 .flex_row {
   margin-bottom: 20px !important;
-}
-
-label {
-  font-size: 14px;
 }
 
 .logoContainer {
@@ -75,18 +59,26 @@ label {
 }
 
 .fileContainer {
-  background: #ccc;
-  /* you can give it background img as well or any style you want*/
-  width: 202px;
-  height: 31px;
+  background: var(--jh-slate-100);
+  border: 1.5px dashed var(--jh-slate-300);
+  border-radius: var(--jh-radius-md);
+  width: 220px;
+  height: 38px;
   overflow: hidden;
   position: relative;
-  font-size: 16px;
-  line-height: 31px;
-  color: #434343;
-  padding: 0px 41px 0 53px;
+  font-size: 14px;
+  line-height: 36px;
+  color: var(--jh-slate-700);
+  padding: 0px 20px;
   margin: 0 auto 10px auto;
   cursor: pointer !important;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: var(--jh-primary);
+    background: var(--jh-primary-subtle);
+    color: var(--jh-primary-dark);
+  }
 }
 
 .fileContainer span {
@@ -110,31 +102,10 @@ label {
 }
 
 .text-heler {
-  font-size: 10px;
-  font-family: sans-serif;
+  font-size: 11px;
   text-align: center;
-  color: #63c2de;
-}
-
-.card-body {
-  overflow-y: scroll;
-  scrollbar-width: none;
-  /* Firefox */
-  -ms-overflow-style: none;
-  /* Internet Explorer 10+ */
-}
-
-.card-body::-webkit-scrollbar {
-  /* WebKit */
-  width: 0;
-  height: 0;
-}
-
-.card-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  color: var(--jh-slate-500);
+  margin-top: 4px;
 }
 
 .flex_row_align {

@@ -6,15 +6,12 @@
   terms found in the Website https://initappz.com/license
   Copyright and Good Faith Purchasers © 2023-present initappz.
 -->
-<!--<c-footer>-->
-<div>
-  <a href="https://codecanyon.net/user/initappz/portfolio" target="_blank">Initappz</a>
-  <span> &copy; {{date}} initappz</span>
-</div>
-<div class="ms-auto">
-  {{util.translate('Powered by')}}
-  <a href="https://codecanyon.net/user/initappz/portfolio" target="_blank">
-    <span> Initappz</span>
-  </a>
-</div>
-<!--</c-footer>-->
+<footer class="footer d-flex justify-content-between align-items-center px-4 py-3 bg-white border-top text-muted" style="font-size: 0.82rem; border-color: rgba(226, 232, 240, 0.8) !important;">
+  <div>
+    <span class="fw-bold text-dark">{{util.appName || 'Jhora Store'}}</span>
+    <span class="ms-2">&copy; {{date}} Vendor Portal. All rights reserved.</span>
+  </div>
+  <div class="d-none d-sm-flex align-items-center gap-3">
+    <span class="badge bg-light text-secondary border">v4.1</span>
+  </div>
+</footer>

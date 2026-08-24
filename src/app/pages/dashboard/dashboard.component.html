@@ -1,242 +1,283 @@
 <!-- 
-  Authors : initappz (Rahul Jograna)
-  Website : https://initappz.com/
-  App Name : Grocery Delivery App Flutter
-  This App Template Source code is licensed as per the
-  terms found in the Website https://initappz.com/license
-  Copyright and Good Faith Purchasers © 2023-present initappz.
+  Jhora Store Dashboard — Clean & Attractive Experience
 -->
 <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
 <div class="animated fadeIn">
-    <div class="row mb-2">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header">
-                    {{util.translate('Orders')}}
+
+    <!-- 1. Top KPI Summary Grid -->
+    <div class="dashboard-kpi-grid">
+        <!-- New Orders KPI -->
+        <div class="kpi-stat-card kpi-blue">
+            <div class="kpi-icon-box box-blue">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                </svg>
+            </div>
+            <div class="kpi-text-info">
+                <span class="kpi-count">{{newOrders.length}}</span>
+                <span class="kpi-label">{{util.translate('New Orders')}}</span>
+            </div>
+        </div>
+
+        <!-- Ongoing Orders KPI -->
+        <div class="kpi-stat-card kpi-amber">
+            <div class="kpi-icon-box box-amber">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+            <div class="kpi-text-info">
+                <span class="kpi-count">{{onGoingOrders.length}}</span>
+                <span class="kpi-label">{{util.translate('Ongoing Orders')}}</span>
+            </div>
+        </div>
+
+        <!-- Completed Orders KPI -->
+        <div class="kpi-stat-card kpi-emerald">
+            <div class="kpi-icon-box box-emerald">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+            <div class="kpi-text-info">
+                <span class="kpi-count">{{olders.length}}</span>
+                <span class="kpi-label">{{util.translate('Past Orders')}}</span>
+            </div>
+        </div>
+
+        <!-- Store Status KPI -->
+        <div class="kpi-stat-card kpi-indigo">
+            <div class="kpi-icon-box box-indigo">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                </svg>
+            </div>
+            <div class="kpi-text-info">
+                <span class="kpi-count" style="font-size: 1.3rem; color: #059669;">Active</span>
+                <span class="kpi-label">{{util.translate('Store Status')}}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Orders Management Surface -->
+    <div class="orders-management-panel">
+        
+        <!-- Header -->
+        <div class="orders-card-header">
+            <div class="header-left">
+                <div class="header-icon-pill">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                    </svg>
                 </div>
-                <div class="card-body pb-2">
-                    <tabset>
-                        <tab [heading]="util.translate('New Order')">
-                            <div style="height: 70vh;overflow: scroll;padding: 10px;">
-                                <p *ngIf="!dummy?.length && !newOrders?.length" class="ion-text-center">
-                                    {{util.translate('No New Orders Found')}}
-                                </p>
-                                <div class="card_div" *ngFor="let item of newOrders" (click)="goToOrder(item)">
-
-                                    <div class="image_div">
-                                        <img [src]="api.imageUrl+ item.orders[0].cover"
-                                            onError="this.src='assets/imgs/user.png'">
-                                    </div>
-                                    <div class="desc_div">
-                                        <p style="font-weight: bold;color: gray;font-size: 12px;">
-                                            {{util.translate('ORDER')}}
-                                            #{{item.id}}
-                                        </p>
-                                        <div *ngIf="item.orders?.length" class="border_bottom">
-                                            <p *ngFor="let order of item.orders;let ol = index" class="items">
-                                                <span *ngIf="order.size == 0 ">{{order.name}} -
-                                                    <span *ngIf="order.have_gram == 1"> {{order.gram}}
-                                                        {{util.translate('grams')}} </span>
-                                                    <span *ngIf="order.have_kg == 1"> {{order.kg}}
-                                                        {{util.translate('kg')}} </span>
-                                                    <span *ngIf="order.have_liter ==1"> {{order.liter}}
-                                                        {{util.translate('ltr')}} </span>
-                                                    <span *ngIf="order.have_ml ==1"> {{order.ml}}
-                                                        {{util.translate('ml')}} </span>
-                                                    <span *ngIf="order.have_pcs == 1"> {{order.pcs}}
-                                                        {{util.translate('pcs')}} </span>
-
-                                                    <span *ngIf="util.cside =='left'">
-                                                        {{util.currecny}} {{order.discount ==0 ? order.original_price :
-                                                        order.sell_price}}
-                                                    </span>
-                                                    <span *ngIf="util.cside =='right'">
-                                                        {{order.discount ==0 ? order.original_price : order.sell_price}}
-                                                        {{util.currecny}}
-                                                    </span>
-
-                                                </span>
-                                                <span *ngIf="order.size == 1">
-                                                    {{order.name}} - <span>
-                                                        {{order.variations[0].items[order.variant].title}} </span>
-                                                    <span *ngIf="util.cside =='left'">
-                                                        {{util.currecny}} {{order.discount ==0 ? order.original_price :
-                                                        order.sell_price}}
-                                                    </span>
-                                                    <span *ngIf="util.cside =='right'">
-                                                        {{order.discount ==0 ? order.original_price : order.sell_price}}
-                                                        {{util.currecny}}
-                                                    </span>
-                                                </span>
-                                                <span>X {{order.quantity}}</span>
-
-                                            </p>
-
-                                        </div>
-                                        <p class="datetime">{{ item.date_time}}</p>
-                                    </div>
-                                    <div class="status" style="background: #f86c6b !important;">
-                                        {{item.storeStatus}}
-                                    </div>
-                                </div>
-
-                                <div class="card_div_skel" *ngFor="let item of dummy">
-                                    <div *ngFor="let item of [1,2,3,4,5]" style="width: 100%;">
-                                        <ngx-skeleton-loader count="1" appearance="line"
-                                            style="width: 100%;height: 10px;">
-                                        </ngx-skeleton-loader>
-                                    </div>
-                                </div>
-                            </div>
-                        </tab>
-                        <tab [heading]="util.translate('Ongoing Order')">
-                            <div style="height: 70vh;overflow: scroll;padding: 10px;">
-                                <p *ngIf="!dummy?.length && !onGoingOrders?.length" class="ion-text-center">
-                                    {{util.translate('No Orders Found')}}
-                                </p>
-                                <div class="card_div" *ngFor="let item of onGoingOrders" (click)="goToOrder(item)">
-
-                                    <div class="image_div">
-                                        <img [src]="api.imageUrl+ item.orders[0].cover"
-                                            onError="this.src='assets/imgs/user.png'">
-                                    </div>
-                                    <div class="desc_div">
-                                        <p style="font-weight: bold;color: gray;font-size: 12px;">
-                                            {{util.translate('ORDER')}}
-                                            #{{item.id}}
-                                        </p>
-                                        <div *ngIf="item.orders?.length" class="border_bottom">
-                                            <p *ngFor="let order of item.orders;let ol = index" class="items">
-                                                <span *ngIf="order.size == 0 ">{{order.name}} -
-                                                    <span *ngIf="order.have_gram == 1"> {{order.gram}}
-                                                        {{util.translate('grams')}} </span>
-                                                    <span *ngIf="order.have_kg == 1"> {{order.kg}}
-                                                        {{util.translate('kg')}} </span>
-                                                    <span *ngIf="order.have_liter ==1"> {{order.liter}}
-                                                        {{util.translate('ltr')}} </span>
-                                                    <span *ngIf="order.have_ml ==1"> {{order.ml}}
-                                                        {{util.translate('ml')}} </span>
-                                                    <span *ngIf="order.have_pcs == 1"> {{order.pcs}}
-                                                        {{util.translate('pcs')}} </span>
-
-                                                    <span *ngIf="util.cside =='left'">
-                                                        {{util.currecny}} {{order.discount ==0 ? order.original_price :
-                                                        order.sell_price}}
-                                                    </span>
-                                                    <span *ngIf="util.cside =='right'">
-                                                        {{order.discount ==0 ? order.original_price : order.sell_price}}
-                                                        {{util.currecny}}
-                                                    </span>
-
-                                                </span>
-                                                <span *ngIf="order.size == 1">
-                                                    {{order.name}} - <span>
-                                                        {{order.variations[0].items[order.variant].title}} </span>
-                                                    <span *ngIf="util.cside =='left'">
-                                                        {{util.currecny}} {{order.discount ==0 ? order.original_price :
-                                                        order.sell_price}}
-                                                    </span>
-                                                    <span *ngIf="util.cside =='right'">
-                                                        {{order.discount ==0 ? order.original_price : order.sell_price}}
-                                                        {{util.currecny}}
-                                                    </span>
-                                                </span>
-                                                <span>X {{order.quantity}}</span>
-
-                                            </p>
-
-                                        </div>
-                                        <p class="datetime">{{ item.date_time}}</p>
-                                    </div>
-                                    <div class="status">
-                                        {{item.storeStatus}}
-                                    </div>
-                                </div>
-                                <div class="card_div_skel" *ngFor="let item of dummy">
-                                    <div *ngFor="let item of [1,2,3,4,5]" style="width: 100%;">
-                                        <ngx-skeleton-loader count="1" appearance="line"
-                                            style="width: 100%;height: 10px;">
-                                        </ngx-skeleton-loader>
-                                    </div>
-                                </div>
-                            </div>
-                        </tab>
-                        <tab [heading]="util.translate('Past Order')">
-                            <div style="height: 70vh;overflow: scroll;padding: 10px;">
-                                <p *ngIf="!dummy?.length && !olders?.length" class="ion-text-center">
-                                    {{util.translate('No New Orders Found')}}
-                                </p>
-                                <div class="card_div" *ngFor="let item of olders" (click)="goToOrder(item)">
-
-                                    <div class="image_div">
-                                        <img [src]="api.imageUrl+ item.orders[0].cover"
-                                            onError="this.src='assets/imgs/user.png'">
-                                    </div>
-                                    <div class="desc_div">
-                                        <p style="font-weight: bold;color: gray;font-size: 12px;">
-                                            {{util.translate('ORDER')}}
-                                            #{{item.id}}
-                                        </p>
-                                        <div *ngIf="item.orders?.length" class="border_bottom">
-                                            <p *ngFor="let order of item.orders;let ol = index" class="items">
-                                                <span *ngIf="order.size == 0 ">{{order.name}} -
-                                                    <span *ngIf="order.have_gram == 1"> {{order.gram}}
-                                                        {{util.translate('grams')}} </span>
-                                                    <span *ngIf="order.have_kg == 1"> {{order.kg}}
-                                                        {{util.translate('kg')}} </span>
-                                                    <span *ngIf="order.have_liter ==1"> {{order.liter}}
-                                                        {{util.translate('ltr')}} </span>
-                                                    <span *ngIf="order.have_ml ==1"> {{order.ml}}
-                                                        {{util.translate('ml')}} </span>
-                                                    <span *ngIf="order.have_pcs == 1"> {{order.pcs}}
-                                                        {{util.translate('pcs')}} </span>
-
-                                                    <span *ngIf="util.cside =='left'">
-                                                        {{util.currecny}} {{order.discount ==0 ? order.original_price :
-                                                        order.sell_price}}
-                                                    </span>
-                                                    <span *ngIf="util.cside =='right'">
-                                                        {{order.discount ==0 ? order.original_price : order.sell_price}}
-                                                        {{util.currecny}}
-                                                    </span>
-
-                                                </span>
-                                                <span *ngIf="order.size == 1">
-                                                    {{order.name}} - <span>
-                                                        {{order.variations[0].items[order.variant].title}} </span>
-                                                    <span *ngIf="util.cside =='left'">
-                                                        {{util.currecny}} {{order.discount ==0 ? order.original_price :
-                                                        order.sell_price}}
-                                                    </span>
-                                                    <span *ngIf="util.cside =='right'">
-                                                        {{order.discount ==0 ? order.original_price : order.sell_price}}
-                                                        {{util.currecny}}
-                                                    </span>
-                                                </span>
-                                                <span>X {{order.quantity}}</span>
-
-                                            </p>
-
-                                        </div>
-                                        <p class="datetime">{{ item.date_time}}</p>
-                                    </div>
-                                    <div class="status" style="background: red !important;">
-                                        {{item.storeStatus}}
-                                    </div>
-                                </div>
-
-                                <div class="card_div_skel" *ngFor="let item of dummy">
-                                    <div *ngFor="let item of [1,2,3,4,5]" style="width: 100%;">
-                                        <ngx-skeleton-loader count="1" appearance="line"
-                                            style="width: 100%;height: 10px;">
-                                        </ngx-skeleton-loader>
-                                    </div>
-                                </div>
-                            </div>
-                        </tab>
-                    </tabset>
+                <div>
+                    <h5 class="header-title">{{util.translate('Orders Management')}}</h5>
+                    <p class="header-subtitle">Live incoming orders and customer delivery fulfillment</p>
                 </div>
             </div>
+
+            <button type="button" class="btn-refresh-pill" (click)="getOrders()">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                </svg>
+                <span>Refresh</span>
+            </button>
+        </div>
+
+        <div class="orders-card-body">
+            
+            <!-- Segmented Tab Switcher Pills -->
+            <div class="segmented-tab-nav">
+                <button type="button" class="tab-pill-button tab-blue" [class.active]="selectedTab == 0" (click)="selectedTab = 0">
+                    <span class="tab-status-dot"></span>
+                    <span>{{util.translate('New Orders')}}</span>
+                    <span class="tab-counter-badge">{{newOrders.length}}</span>
+                </button>
+
+                <button type="button" class="tab-pill-button tab-amber" [class.active]="selectedTab == 1" (click)="selectedTab = 1">
+                    <span class="tab-status-dot"></span>
+                    <span>{{util.translate('Ongoing Orders')}}</span>
+                    <span class="tab-counter-badge">{{onGoingOrders.length}}</span>
+                </button>
+
+                <button type="button" class="tab-pill-button tab-emerald" [class.active]="selectedTab == 2" (click)="selectedTab = 2">
+                    <span class="tab-status-dot"></span>
+                    <span>{{util.translate('Past Orders')}}</span>
+                    <span class="tab-counter-badge">{{olders.length}}</span>
+                </button>
+            </div>
+
+            <!-- TAB 0: New Orders Content -->
+            <div *ngIf="selectedTab == 0" class="orders-list-wrapper">
+                <!-- Empty State -->
+                <div *ngIf="!dummy?.length && !newOrders?.length" class="empty-state-container">
+                    <div class="empty-icon-circle">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                        </svg>
+                    </div>
+                    <div class="empty-title">{{util.translate('No New Orders Found')}}</div>
+                    <p class="empty-desc">New incoming orders from customers will appear here automatically in real time.</p>
+                </div>
+
+                <!-- Orders List -->
+                <div class="order-modern-card" *ngFor="let item of newOrders" (click)="goToOrder(item)">
+                    <div class="order-thumb-wrap">
+                        <img [src]="api.imageUrl + item.orders[0]?.cover" onError="this.src='assets/imgs/user.png'" alt="Order Item">
+                    </div>
+                    <div class="order-main-details">
+                        <div class="order-top-row">
+                            <span class="order-code">#{{item.id}}</span>
+                            <span class="order-time">{{item.date_time}}</span>
+                        </div>
+                        <div class="order-items-breakdown">
+                            <div class="order-single-item" *ngFor="let order of item.orders">
+                                <div>
+                                    <span class="item-name-text">{{order.name}}</span>
+                                    <span class="item-unit-tag" *ngIf="order.size == 0">
+                                        <span *ngIf="order.have_gram == 1">{{order.gram}}g</span>
+                                        <span *ngIf="order.have_kg == 1">{{order.kg}}kg</span>
+                                        <span *ngIf="order.have_liter == 1">{{order.liter}}L</span>
+                                        <span *ngIf="order.have_ml == 1">{{order.ml}}ml</span>
+                                        <span *ngIf="order.have_pcs == 1">{{order.pcs}}pcs</span>
+                                    </span>
+                                    <span class="item-unit-tag" *ngIf="order.size == 1">
+                                        {{order.variations?.[0]?.items?.[order.variant]?.title}}
+                                    </span>
+                                    <span class="item-qty-tag">x{{order.quantity}}</span>
+                                </div>
+                                <span class="item-price-tag">
+                                    <span *ngIf="util.cside =='left'">{{util.currecny}} {{order.discount == 0 ? order.original_price : order.sell_price}}</span>
+                                    <span *ngIf="util.cside =='right'">{{order.discount == 0 ? order.original_price : order.sell_price}} {{util.currecny}}</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-status-tag tag-blue">
+                        {{item.storeStatus}}
+                    </div>
+                </div>
+
+                <!-- Skeleton Loader -->
+                <div *ngFor="let item of dummy" class="p-3 bg-light rounded-3 mb-2">
+                    <ngx-skeleton-loader count="1" appearance="line" [theme]="{'height.px': 14, 'border-radius': '6px'}"></ngx-skeleton-loader>
+                </div>
+            </div>
+
+            <!-- TAB 1: Ongoing Orders Content -->
+            <div *ngIf="selectedTab == 1" class="orders-list-wrapper">
+                <!-- Empty State -->
+                <div *ngIf="!dummy?.length && !onGoingOrders?.length" class="empty-state-container">
+                    <div class="empty-icon-circle">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="empty-title">{{util.translate('No Ongoing Orders')}}</div>
+                    <p class="empty-desc">Orders being prepared or out for delivery will be listed here.</p>
+                </div>
+
+                <!-- Orders List -->
+                <div class="order-modern-card" *ngFor="let item of onGoingOrders" (click)="goToOrder(item)">
+                    <div class="order-thumb-wrap">
+                        <img [src]="api.imageUrl + item.orders[0]?.cover" onError="this.src='assets/imgs/user.png'" alt="Order Item">
+                    </div>
+                    <div class="order-main-details">
+                        <div class="order-top-row">
+                            <span class="order-code">#{{item.id}}</span>
+                            <span class="order-time">{{item.date_time}}</span>
+                        </div>
+                        <div class="order-items-breakdown">
+                            <div class="order-single-item" *ngFor="let order of item.orders">
+                                <div>
+                                    <span class="item-name-text">{{order.name}}</span>
+                                    <span class="item-unit-tag" *ngIf="order.size == 0">
+                                        <span *ngIf="order.have_gram == 1">{{order.gram}}g</span>
+                                        <span *ngIf="order.have_kg == 1">{{order.kg}}kg</span>
+                                        <span *ngIf="order.have_liter == 1">{{order.liter}}L</span>
+                                        <span *ngIf="order.have_ml == 1">{{order.ml}}ml</span>
+                                        <span *ngIf="order.have_pcs == 1">{{order.pcs}}pcs</span>
+                                    </span>
+                                    <span class="item-unit-tag" *ngIf="order.size == 1">
+                                        {{order.variations?.[0]?.items?.[order.variant]?.title}}
+                                    </span>
+                                    <span class="item-qty-tag">x{{order.quantity}}</span>
+                                </div>
+                                <span class="item-price-tag">
+                                    <span *ngIf="util.cside =='left'">{{util.currecny}} {{order.discount == 0 ? order.original_price : order.sell_price}}</span>
+                                    <span *ngIf="util.cside =='right'">{{order.discount == 0 ? order.original_price : order.sell_price}} {{util.currecny}}</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-status-tag tag-amber">
+                        {{item.storeStatus}}
+                    </div>
+                </div>
+
+                <!-- Skeleton Loader -->
+                <div *ngFor="let item of dummy" class="p-3 bg-light rounded-3 mb-2">
+                    <ngx-skeleton-loader count="1" appearance="line" [theme]="{'height.px': 14, 'border-radius': '6px'}"></ngx-skeleton-loader>
+                </div>
+            </div>
+
+            <!-- TAB 2: Past Orders Content -->
+            <div *ngIf="selectedTab == 2" class="orders-list-wrapper">
+                <!-- Empty State -->
+                <div *ngIf="!dummy?.length && !olders?.length" class="empty-state-container">
+                    <div class="empty-icon-circle">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="empty-title">{{util.translate('No Past Orders Found')}}</div>
+                    <p class="empty-desc">Historical and completed customer orders will be preserved here.</p>
+                </div>
+
+                <!-- Orders List -->
+                <div class="order-modern-card" *ngFor="let item of olders" (click)="goToOrder(item)">
+                    <div class="order-thumb-wrap">
+                        <img [src]="api.imageUrl + item.orders[0]?.cover" onError="this.src='assets/imgs/user.png'" alt="Order Item">
+                    </div>
+                    <div class="order-main-details">
+                        <div class="order-top-row">
+                            <span class="order-code">#{{item.id}}</span>
+                            <span class="order-time">{{item.date_time}}</span>
+                        </div>
+                        <div class="order-items-breakdown">
+                            <div class="order-single-item" *ngFor="let order of item.orders">
+                                <div>
+                                    <span class="item-name-text">{{order.name}}</span>
+                                    <span class="item-unit-tag" *ngIf="order.size == 0">
+                                        <span *ngIf="order.have_gram == 1">{{order.gram}}g</span>
+                                        <span *ngIf="order.have_kg == 1">{{order.kg}}kg</span>
+                                        <span *ngIf="order.have_liter == 1">{{order.liter}}L</span>
+                                        <span *ngIf="order.have_ml == 1">{{order.ml}}ml</span>
+                                        <span *ngIf="order.have_pcs == 1">{{order.pcs}}pcs</span>
+                                    </span>
+                                    <span class="item-unit-tag" *ngIf="order.size == 1">
+                                        {{order.variations?.[0]?.items?.[order.variant]?.title}}
+                                    </span>
+                                    <span class="item-qty-tag">x{{order.quantity}}</span>
+                                </div>
+                                <span class="item-price-tag">
+                                    <span *ngIf="util.cside =='left'">{{util.currecny}} {{order.discount == 0 ? order.original_price : order.sell_price}}</span>
+                                    <span *ngIf="util.cside =='right'">{{order.discount == 0 ? order.original_price : order.sell_price}} {{util.currecny}}</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-status-tag" [ngClass]="item.storeStatus == 'delivered' ? 'tag-emerald' : 'tag-rose'">
+                        {{item.storeStatus}}
+                    </div>
+                </div>
+
+                <!-- Skeleton Loader -->
+                <div *ngFor="let item of dummy" class="p-3 bg-light rounded-3 mb-2">
+                    <ngx-skeleton-loader count="1" appearance="line" [theme]="{'height.px': 14, 'border-radius': '6px'}"></ngx-skeleton-loader>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

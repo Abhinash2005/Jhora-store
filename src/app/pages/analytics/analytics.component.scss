@@ -1,256 +1,99 @@
 /*
-  Authors : initappz (Rahul Jograna)
-  Website : https://initappz.com/
-  App Name : Grocery Delivery App Flutter
-  This App Template Source code is licensed as per the
-  terms found in the Website https://initappz.com/license
-  Copyright and Good Faith Purchasers © 2023-present initappz.
+  Analytics Modern SCSS
 */
-.main_content_div {
-    .content_div {
-        padding: 16px;
-        background: white;
-        margin-bottom: 10px;
 
-        .title_flex {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 16px;
+.analytics-metric-banner {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  border-radius: var(--jh-radius-lg);
+  padding: 1.5rem;
+  color: #ffffff;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--jh-shadow-md);
 
-            .title_lbl {
-                font-size: 18px;
-                font-weight: bold;
-            }
+  .banner-header {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--jh-primary);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
 
-            div {
-                display: flex;
-                align-items: center;
+  .banner-amount {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
+  }
 
-            }
-        }
+  .banner-subtitle {
+    font-size: 0.85rem;
+    color: var(--jh-slate-400);
+  }
 
-        .span_lbl {
-            font-size: 15px;
+  .banner-stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 
-            span {
-                color: green;
-            }
-        }
-
-        .slide_div {
-            border-radius: 10px;
-            background: #0594aa;
-            width: 100%;
-            margin-bottom: 40px;
-
-            div {
-                padding: 10px;
-
-                .simp_lbl {
-                    color: white;
-                    text-align: left;
-                    font-size: 14px;
-                }
-
-                .bold_lbl {
-                    color: white;
-                    font-weight: bold;
-                    font-size: 18px;
-                    text-align: left;
-                }
-            }
-        }
-
-        .blue_div {
-            background: #394a84;
-            padding: 10px;
-            border-radius: 10px;
-
-            .bold_lbl {
-                color: white;
-                font-weight: bold;
-                margin-bottom: 8px;
-            }
-
-            .small_lbl {
-                color: white;
-                font-size: 13px;
-            }
-
-
-        }
-
-        .border_slider_div {
-            border-radius: 10px;
-            border: 1px solid lightgrey;
-            margin-bottom: 40px;
-            width: 100%;
-
-            div {
-                padding: 10px;
-
-                .simp_lbl {
-                    text-align: left;
-                    font-size: 14px;
-                }
-
-                .bold_lbl {
-                    font-weight: bold;
-                    font-size: 18px;
-                    text-align: left;
-                }
-            }
-        }
-
-        .border_div {
-            border: 1px solid lightgrey;
-            border-radius: 5px;
-            margin-bottom: 16px;
-
-            .inner_content {
-                padding: 10px;
-
-                .bold_lbl {
-                    font-weight: bold;
-                    margin-bottom: 10px;
-                }
-
-                .time_flex {
-                    display: flex;
-                    color: grey;
-
-
-                    div {
-                        display: flex;
-                        align-items: center;
-                    }
-                }
-
-                .grey_lbl {
-                    font-size: 14px;
-                    color: grey;
-
-                    span {
-                        font-weight: bold;
-                    }
-                }
-            }
-
-            .inner_flex {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-
-                .small_lbl {
-                    font-size: 14px;
-                }
-            }
-        }
-
-        .row_flex {
-            display: flex;
-            margin-left: -16px;
-            margin-right: -16px;
-
-            div {
-                padding: 16px 10px;
-            }
-
-            .f_div {
-                width: 50%;
-            }
-
-            .l_div {
-                width: 50%;
-            }
-
-
-        }
+    .stat-col {
+      .stat-lbl {
+        font-size: 0.75rem;
+        color: var(--jh-slate-400);
+        margin-bottom: 2px;
+      }
+      .stat-val {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #ffffff;
+      }
     }
+  }
 }
 
-.chart_content_div {
-    .content_div {
-        padding: 16px;
-        background: white;
-        margin-bottom: 12px;
+.analytics-tip-card {
+  background: var(--jh-primary-subtle);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: var(--jh-radius-md);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
 
-        .title_lbl {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 16px;
-        }
+  .tip-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--jh-primary-dark);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
 
+  .tip-text {
+    font-size: 0.82rem;
+    color: var(--jh-slate-600);
+    margin: 0;
+    line-height: 1.4;
+  }
+}
 
+.chart-card-wrapper {
+  background: #ffffff;
+  border: 1px solid var(--jh-border);
+  border-radius: var(--jh-radius-lg);
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--jh-shadow-card);
 
-        .color_flex {
-            display: flex;
-            align-items: center;
-
-            .color_div {
-                width: 20px;
-                height: 6px;
-                border-radius: 10px;
-                background: green;
-            }
-
-        }
-
-        .blue_div {
-            background: #394a84;
-            padding: 10px;
-            border-radius: 10px;
-
-            .bold_lbl {
-                color: white;
-                font-weight: bold;
-                margin-bottom: 8px;
-            }
-
-            .small_lbl {
-                color: white;
-                font-size: 13px;
-            }
-
-        }
-
-        .span_lbl {
-            font-size: 15px;
-            margin-bottom: 20px;
-
-            span {
-                color: green;
-            }
-        }
-
-        .no_lbl {
-            margin-bottom: 20px;
-            margin-top: 20px;
-
-            span {
-                font-weight: bold;
-                font-size: 26px;
-                margin-right: 8px;
-            }
-
-            font-size: 14px;
-        }
-
-        .chart_flex {
-            display: flex;
-
-            .color_content {
-                .color_flex {
-                    margin-bottom: 20px;
-                }
-            }
-        }
-
-        .line_div {
-            width: 100%;
-            height: 1px;
-            background: lightgray;
-        }
-    }
+  .chart-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--jh-slate-800);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 }

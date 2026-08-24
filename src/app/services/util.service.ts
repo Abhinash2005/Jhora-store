@@ -28,8 +28,8 @@ export class UtilService {
   public userInfo: any;
   public general: any;
   public cside: any = 'left';
-  public currecny: any = '$';
-  public appName: any;
+  public currecny: any = '₹';
+  public appName: any = 'Jhora Store';
   public appLogo: any;
   public direction: any;
   public show_booking: boolean = true;
