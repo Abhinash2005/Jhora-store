@@ -8,8 +8,8 @@
 */
 export const environment = {
   production: false,
-  baseUrl: 'http://jhora.in/api/',
-  imageUrl: 'http://jhora.in/storage/images/',
+  baseUrl: 'https://jhora.in/api/',
+  imageUrl: 'https://jhora.in/storage/images/',
   firebase: {
     apiKey: "AIzaSyCv0teUMibjC8NmfkS09fyS3uKa8gxYK3M",
     authDomain: "anro-store.firebaseapp.com",
